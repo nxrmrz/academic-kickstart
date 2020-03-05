@@ -17,6 +17,16 @@ date_format = "Jan 2006"
 #   Required fields are `title`, `company`, and `date_start`.
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
+
+[[experience]]
+  title = "Graduate Teaching Assistant"
+  company = "The University of Auckland"
+  company_url = ""
+  location = "Auckland"
+  date_start = "2019-03-01"
+  date_end = ""
+  description = """I tutor object oriented programming in Java and full-stack Javascript both to postgraduates and undergraduates, whilst studying my Master's on the side. This taught me workload management and helped me understand both languages and computer science as a field better."""
+
 [[experience]]
   title = "Data Science Developer"
   company = "Qrious"
@@ -25,17 +35,8 @@ date_format = "Jan 2006"
   date_start = "2019-12-18"
   date_end = "2020-02-14"
   description = """
-An opportunity of a lifetime with one of NZ's leading data companies. Qrious creates innovative, data-centric solutions for various-sized NZ organisations. My job was to ideate and implement two main projects in the hot area of natural language processing. I worked on multiple client and internal side-projects too! I dabbled in programming, data science, visualisation -- no day was the same at Qrious.
+An opportunity of a lifetime with one of NZ's leading data companies. Qrious creates innovative, data-centric solutions for various-sized NZ organisations. My job was to ideate and implement two main projects in the hot area of natural language processing. I worked on multiple client and internal side-projects too! I dabbled in development, data science, visualisation -- no day was the same at Qrious.
   """
-
-[[experience]]
-  title = "Graduate Teaching Assistant"
-  company = "The University of Auckland"
-  company_url = ""
-  location = "Auckland"
-  date_start = "2019-03-01"
-  date_end = "2019-06-01"
-  description = """I tutored Java and object oriented principles of programming to a postgraduate class part-time in the evenings, whilst studying full-time. Taught me workload management, and a LOT of programming fundamentals."""
 
 [[experience]]
   title = "Master's Student, Specialising in Data Analytics and Science"
