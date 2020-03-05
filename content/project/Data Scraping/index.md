@@ -36,7 +36,7 @@ Salary negotiations usually happen *after* an offer is extended. I then wondered
 
 ### The Execution
 
-Glassdoor is a job reviews site with job benefits and salary information reported anonymously by employees of various companies. Indeed and Seek are job-hunting sites with job descriptions and the occasional salary information as well, reported by companies themselves. Data from all three sites would be perfect for our analysis! Collecting data from the sites would need to be automated, in a process called *scraping*. This is a technique used to extract content from specific HTML tags in a webpage, and it can exploit two technologies to do so: Selenium and BeautifulSoup.
+Glassdoor is a job reviews site with job benefits and salary information reported anonymously by employees of various companies. Indeed and Seek are job-hunting sites with job descriptions and the occasional salary information as well, reported by companies themselves. Data from all three sites would be perfect for our analysis! Collecting a vast amount of data from the sites would require automation, using a technique called *scraping*. This is a technique used to extract content from specific HTML tags in a webpage, and in our case, exploits two technologies to do so: Selenium and BeautifulSoup.
 
 Selenium is a Java-based tool used in website testing to automate specific interactions with webpages (i.e. clicking on links, logging in, navigating the page, etc). Since it automates interacting with the DOM, it's being used in Data Science to scrape data from websites. BeautifulSoup, on the other hand, is a Python library that parses HTML and makes it easy to extract specific elements from it.
 
@@ -48,7 +48,6 @@ A work in progress (explanations to follow:)
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
-# from selenium.webdriver.common.keys import Keys
 from time import sleep
 from bs4 import BeautifulSoup, Comment
 import time
@@ -66,6 +65,7 @@ company_name = []
 mean_pay = []
 pay_range = []
 
+#going through 184 pages of salary information
 for pageno in range(1,184):
 
     driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -85,8 +85,8 @@ for pageno in range(1,184):
 
     #getting each salary block
     salaryBlocks = soup.findAll("div", {'class' : 'row align-items-center m-0 salaryRow__SalaryRowStyle__row'})
-    #once you've done that for initial page, scroll to next page and do again. save results into one main file
 
+    #for each salary block, find the job title, company name, average pay, and pay range, and append them to the lists initialised above
     for block in salaryBlocks:
         entry = []
 
@@ -99,6 +99,7 @@ for pageno in range(1,184):
         meanPay = block.find("div", {'class' : 'salaryRow__JobInfoStyle__meanBasePay common__formFactorHelpers__showHH'}).find('span').text
         mean_pay.append(meanPay)
         
+        #if a pay range exists, grab it, otherwise, indicate none exists
         try:
             if block.find("div", {'class' : 'col-2 d-none d-md-block px-0 py salaryRow__SalaryRowStyle__amt'}).find("div", {'class' : 'strong'}):
                 payRange = block.find("div", {'class' : 'col-2 d-none d-md-block px-0 py salaryRow__SalaryRowStyle__amt'}).find("div", {'class' : 'strong'}).text
@@ -110,6 +111,7 @@ for pageno in range(1,184):
 
         driver.quit()
 
+#process the lists into a final dataframe, and save to a CSV
 final = []
 for item in zip_longest(job_title, company_name, mean_pay, pay_range):
     final.append(item)
