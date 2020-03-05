@@ -3,7 +3,7 @@ title: Web Scraping
 summary: Using Selenium and Python's BeautifulSoup to scrape Salary Information from Glassdoor
 tags:
 - Data Projects
-date: ""
+date: "06-03-2020"
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
@@ -30,9 +30,9 @@ slides: ""
 
 An ex-colleague, [Dhilip](https://www.linkedin.com/in/dhilip-subramanian-36021918b/) and I wanted to do a series of end-to-end projects in Data Science and Analytics for fun and to pick up skills along the way that would serve our future careers in this space. When Dhilip approached me for project ideas, I already had one I've thought about for quite some time. 
 
-It was a timely project for us Qrious interns, who were deliberating on our next career move following the summer internship. Towards the end of our internship, a few of us (excluding me but including Dhilip) were graduating and applying for full-time jobs in the data space. Our discussions naturally gravitated to what starting pay we could expect for careers in data science, data engineering, and analytics. I imagined if we had an amount for each job averaged from recent, accurate salary data collected over a large number of companies operating in different industries, we had evidence to make sure future salary negotiations were fair! It was ideal to have a large dataset--the larger the more representative it was of reality.
+It was a timely project for us Qrious interns, who were deliberating on our next career move following the summer internship. Towards the end of our internship, a few of us (excluding me but including Dhilip) were graduating and applying for full-time jobs in the data space. Our discussions naturally gravitated to what starting pay we could expect for careers in data science, data engineering, and analytics. I imagined if we had an amount for each job averaged from recent, accurate salary data collected over a large number of companies operating in different industries, we had evidence to make sure future salary negotiations were fair! 
 
-We didn't stop there. Salary negotiations usually happen *after* an offer is extended. It would be even more useful if we had accurate advice on _how_ to get an offer in the first place. Advice on the top skills a data professional needed, for example, as listed on job postings online, so we could make sure we built on them.
+Salary negotiations usually happen *after* an offer is extended. I then wondered if I could collect data to help my job-searching friends *recieve* an offer in the first place. Data such as the top skills needed for each job title would help them know what to upskill on throughout a job search, or what to highlight in their resumes, for example.
 
 ### The Execution
 
