@@ -32,11 +32,9 @@ An ex-colleague, [Dhilip](https://www.linkedin.com/in/dhilip-subramanian-3602191
 
 It was a timely project for us Qrious interns, who were deliberating on our next career move following the summer internship. Towards the end of our internship, a few of us (excluding me but including Dhilip) were graduating and applying for full-time jobs in the data space. Our discussions naturally gravitated to what starting pay we could expect for careers in data science, data engineering, and analytics. I imagined if we had an amount for each job averaged from recent, accurate salary data collected over a large number of companies operating in different industries, we had evidence to make sure future salary negotiations were fair! 
 
-Salary negotiations usually happen *after* an offer is extended. I then wondered if I could collect data to help my job-searching friends *recieve* an offer in the first place. Data such as the top skills needed for each job title would help them know what to upskill on throughout a job search, or what to highlight in their resumes, for example.
-
 ### The Execution
 
-Glassdoor is a job reviews site with job benefits and salary information reported anonymously by employees of various companies. Indeed and Seek are job-hunting sites with job descriptions and the occasional salary information as well, reported by companies themselves. Data from all three sites would be perfect for our analysis! Collecting a vast amount of data from the sites would require automation, using a technique called *scraping*. This is a technique used to extract content from specific HTML tags in a webpage, and in our case, exploits two technologies to do so: Selenium and BeautifulSoup.
+Glassdoor is a job reviews site with job benefits and salary information reported anonymously by employees of various companies. It was our main data source for this project. Collecting a vast amount of data from the site would require automation, using a technique called *scraping*. This is a technique used to extract content from specific HTML tags in a webpage, and in our case, exploits two technologies to do so: Selenium and BeautifulSoup.
 
 Selenium is a Java-based tool used in website testing to automate specific interactions with webpages (i.e. clicking on links, logging in, navigating the page, etc). Since it automates interacting with the DOM, it's being used in Data Science to scrape data from websites. BeautifulSoup, on the other hand, is a Python library that parses HTML and makes it easy to extract specific elements from it.
 
