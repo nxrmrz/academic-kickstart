@@ -3,7 +3,7 @@ title: Web Scraping
 summary: Using Selenium and Python's BeautifulSoup to scrape Salary Information from Glassdoor
 tags:
 - Data Projects
-date: "06-03-2020"
+date: "2020-02-27T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
@@ -40,31 +40,58 @@ Selenium is a Java-based tool used in website testing to automate specific inter
 
 ### The code
 
-A work in progress (explanations to follow:)
+#### 1. First, we import the necessary libraries: 
+
+_Python Selenium libraries (Scraping)_
+* webdriver - contains tools for working with an automated web browser
+* webdriver.chrome - specifies Google Chrome as our automated browser
+* time - the sleep function allows our automated tasks (i.e. clicking on links) to have a delay. Important for not being blocked as a bot by some websites
+* BeautifulSoup - a python library for parsing HTML pages and grabbing content from specific HTML tags easily
+* lxml - a parser for BeautifulSoup, allowing the HTML pages to be parsed as xml (and queried with xPath)
+
+_Standard Python Libraries_
+* pandas - a library for working with data-frames
+* csv - a tool for reading and writing CSV files
+* itertools - an iterator library
 
 ```python
-from selenium import webdriver
+from selenium import webdriver 
 from selenium.webdriver.chrome.options import Options
-import pandas as pd
-from time import sleep
-from bs4 import BeautifulSoup, Comment
-import time
-import os
-import csv
-import lxml
-from itertools import zip_longest
 from webdriver_manager.chrome import ChromeDriverManager
+from time import sleep
+from bs4 import BeautifulSoup
+import lxml
 
-#setting up an automated google chrome browser
-driver = webdriver.Chrome(ChromeDriverManager().install())
+import pandas as pd 
+import csv
+from itertools import zip_longest
+```
 
+#### 2. Then, we set up an automated browser for scraping
+
+In this step, we navigate to [Glassdoor's Salaries page](https://www.glassdoor.co.nz/Salaries/index.htm) and type in whatever Job Title we'd want salaries for, in whatever location. In this example, we'd want to grab Data Engineers' salary information from the United States. We have to be logged into a Glassdoor account to do this. 
+
+We then copy paste the URL of the resulting page into the driver.get(url) method below.
+
+Next, we find the _last page of results_ Glassdoor has for this particular search. This is important as we're setting up our browser to automatically cycle through all pages of the search, grabbing salary information from each. We do this by modifying the URL in our browser, adding the string *_IP1500* just before the *.htm*. * this lets us jump to the very last page of salary information, as it is likely that there won't be 1500 pages worth of search results. If there is, just adjust the IP number to be larger.
+
+_Once we've jumped to the last page of results,_ note down what that page is (by looking at the last number in the carousel button as such (red in the image below):
+
+![last page scraping](LastPageScrape.png)
+
+and copying that number onto the lastPageNo variable in the below code. In below's example, page 191 is the last page, and the for loop cycles through each page until it reaches that, employing a delay of at least 1.5s before it goes on to the next page.
+
+```python
+#creating empty arrays to hold job title, company name, job mean pay and pay range information
 job_title = []
 company_name = []
 mean_pay = []
 pay_range = []
 
+lastPageNo = 191;
+
 #going through 184 pages of salary information
-for pageno in range(1,184):
+for pageno in range(1,lastPageNo):
 
     driver = webdriver.Chrome(ChromeDriverManager().install())
     
@@ -76,7 +103,24 @@ for pageno in range(1,184):
             "https://www.glassdoor.co.nz/Salaries/us-data-engineer-salary-SRCH_IL.0,2_IN1_KO3,16.htm" + "_IP" + str(pageno) + ".htm"
         )
     time.sleep(1.5)
+```
+#### 3. We parse the HTML of each search result page...and SCRAPE!
 
+...Using Beautifulsoup. The *page_source* attribute of the driver grabs the page with its corresponding HTML tags, and parses it with *lxml*, which as mentioned above, allows us to query the results using xpath if we wished.
+
+After parsing, we then grab specific HTML content. We do this by:
+* Inspecting the html tags where our information lies, by using Google Chrome's *inspect* option
+* Collecting information that would distinguish our target HTML tag/s from others
+
+Tag Classes and IDs are useful for this. We see in the below screenshot, for example, that each salary block is enclosed by a <div> with class *"row align-items-center m-0 salaryRow__SalaryRowStyle__row"*. To grab each salary block from a page, we then use BeautifulSoup's findAll() method, passing on the <div class=""> information mentioned.
+
+![salary blocks enclosed in divs](salaryBlocks.png)
+
+We do the same for every piece of information we want (i.e. job titles, company name, average salary, and salary range in this example).
+These bits of info were obtained the same way as above. We looped through each salary block above to grab the specific information, as the below code shows.
+
+```python
+    #continuation from code above (still inside the for loop)
     #parsing the page through lxml option of beautifulsoup
     html = driver.page_source
     soup = BeautifulSoup(html, 'lxml')
@@ -108,7 +152,15 @@ for pageno in range(1,184):
             pay_range.append("N/A")
 
         driver.quit()
+```
 
+#### 4. We save the results to a .csv file
+
+Once we've obtained all the information we need, we store them into a python data-frame, which allows us to store the data in a tabular format. The columns of the table correspond to job title, company name, mean pay, and the pay range, whilst the rows are individual companies. 
+
+The below code shows how the results are stored in a data-frame and eventually converted to a .csv file for easy reading into your favourite data analysis program/language later on.
+
+```python
 #process the lists into a final dataframe, and save to a CSV
 final = []
 for item in zip_longest(job_title, company_name, mean_pay, pay_range):
@@ -119,3 +171,5 @@ df = pd.DataFrame(
 
 df.to_csv("Data Engineer Salaries United States.csv")
 ```
+
+_The final output of this scraping is a 28,000 row file, containing salary information for Data Engineers, Analysts, Scientists, and Machine Learning Engineers in Australia, New Zealand, and the United States. The file can be downloaded {{% staticref "files/Data-Professional-Salaries-Master.csv" "newtab" %}}here{{% /staticref %}} for free :)_
