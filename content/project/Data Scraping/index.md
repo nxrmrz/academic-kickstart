@@ -73,9 +73,9 @@ In this step, we navigate to [Glassdoor's Salaries page](https://www.glassdoor.c
 
 We then copy paste the URL of the resulting page into the driver.get(url) method below.
 
-Next, we find the _last page of results_ Glassdoor has for this particular search. This is important as we're setting up our browser to automatically cycle through all pages of the search, grabbing salary information from each. We do this by modifying the URL in our browser, adding the string *_IP1500* just before the *.htm*. * this lets us jump to the very last page of salary information, as it is likely that there won't be 1500 pages worth of search results. If there is, just adjust the IP number to be larger.
+Next, we find the _last page of results_ Glassdoor has for this particular search. This is important as we're setting up our browser to automatically cycle through all pages of the search, grabbing salary information from each. We do this by modifying the URL in our browser, adding the string *_IP1500* just before the *.htm*. This lets us jump to the very last page of salary information, as it is likely that there won't be 1500 pages worth of search results. If there is, just adjust the IP number to be larger.
 
-_Once we've jumped to the last page of results,_ note down what that page is (by looking at the last number in the carousel button as such (red in the image below):
+Once we've jumped to the last page of results, note down what that page is (by looking at the last number in the carousel button as such (red in the image below):
 
 ![last page scraping](LastPageScrape.png)
 
@@ -112,7 +112,7 @@ After parsing, we then grab specific HTML content. We do this by:
 * Inspecting the html tags where our information lies, by using Google Chrome's *inspect* option
 * Collecting information that would distinguish our target HTML tag/s from others
 
-Tag Classes and IDs are useful for this. We see in the below screenshot, for example, that each salary block is enclosed by a <div> with class *"row align-items-center m-0 salaryRow__SalaryRowStyle__row"*. To grab each salary block from a page, we then use BeautifulSoup's findAll() method, passing on the <div class=""> information mentioned.
+Tag Classes and IDs are useful for this. We see in the below screenshot, for example, that each salary block is enclosed by a <div> with class *"row align-items-center m-0 salaryRow__SalaryRowStyle__row"*. To grab each salary block from a page, we then use BeautifulSoup's findAll() method, passing on the ```html<div class="">``` information mentioned.
 
 ![salary blocks enclosed in divs](salaryBlocks.png)
 
