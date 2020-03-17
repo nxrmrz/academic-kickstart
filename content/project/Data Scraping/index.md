@@ -112,7 +112,7 @@ After parsing, we then grab specific HTML content. We do this by:
 * Inspecting the html tags where our information lies, by using Google Chrome's *inspect* option
 * Collecting information that would distinguish our target HTML tag/s from others
 
-Tag Classes and IDs are useful for this. We see in the below screenshot, for example, that each salary block is enclosed by a <div> with class *"row align-items-center m-0 salaryRow__SalaryRowStyle__row"*. To grab each salary block from a page, we then use BeautifulSoup's findAll() method, passing on the ```html<div class="">``` information mentioned.
+Tag Classes and IDs are useful for this. We see in the below screenshot, for example, that each salary block is enclosed by a ```<div>``` with class *"row align-items-center m-0 salaryRow__SalaryRowStyle__row"*. To grab each salary block from a page, we then use BeautifulSoup's findAll() method, passing on the ```<div class="">``` information mentioned.
 
 ![salary blocks enclosed in divs](salaryBlocks.png)
 
